@@ -8,8 +8,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export class HttpServiceService {
 
-   base = 'https://sbfbackend.herokuapp.com';
-  //base = 'http://localhost';
+  base = 'https://sbfbackend.herokuapp.com';
+  //base = 'http://localhost:3000';
   port = '3000';
   ip = this.base; // + ':' + this.port;
   httpOptions = {
@@ -77,6 +77,7 @@ export class HttpServiceService {
 
     // tslint:disable-next-line:no-shadowed-variable
     console.log('1');
+    console.log(body);
     await new Promise((res, _) => {
       // tslint:disable-next-line:no-shadowed-variable
       this.http.post(url1, body, this.httpOptions).subscribe( _ => res('ok'));
