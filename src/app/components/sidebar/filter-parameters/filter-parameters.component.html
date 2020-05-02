@@ -4,7 +4,7 @@
     <div class="form-group">
       <p class="text-white"><b>Load elements dataset</b></p>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="dataSet" (change)="setElemDataSet($event)">
+        <input type="file" class="custom-file-input" id="dataSet" (change)="setElemDataSet($event)" accept=".csv">
         <label class="custom-file-label" for="dataSet" >{{dataSetName}}</label>
       </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="form-group">
       <p class="text-white"><b>Load non elements dataset</b></p>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="nonElem" (change)="setNonElemDataSet($event)">
+        <input type="file" class="custom-file-input" id="nonElem" (change)="setNonElemDataSet($event)" accept=".csv">
         <label class="custom-file-label" for="nonElem" >{{nonELemName}}</label>
       </div>
     </div>
@@ -34,7 +34,7 @@
     <div class="form-group">
       <p class="text-white"><b>Hash salt</b></p>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="salt" (change)="setHashSalt($event)">
+        <input type="file" class="custom-file-input" id="salt" (change)="setHashSalt($event)"  accept=".txt">
         <label class="custom-file-label" for="salt" >{{saltName}}</label>
       </div>
     </div>

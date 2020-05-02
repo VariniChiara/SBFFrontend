@@ -17,6 +17,10 @@ export class FilterParametersComponent implements OnInit {
   dataSetName = 'Choose file';
   formData: FormData = new FormData();
 
+  ElemFile: Blob;
+  NonElemFile: Blob;
+  hashSaltFile: Blob;
+
   constructor(public filter: FilterSettingsService, public http: HttpServiceService, public data: DataResultsService) {}
 
   ngOnInit() {}
@@ -43,6 +47,14 @@ export class FilterParametersComponent implements OnInit {
     };
 
     this.formData.set('parameters', JSON.stringify(parameters));
+
+    this.formData.append('uploads[]', this.ElemFile, 'ElemDataset.csv');
+    this.formData.append('uploads[]', this.NonElemFile, 'NonElemDataset.csv');
+
+    if (this.hashSaltFile !== undefined) {
+      this.formData.append('uploads[]', this.hashSaltFile, 'HashSalt.txt');
+    }
+    console.log(this.formData.getAll('uploads[]').length);
   }
 
   selectHashFunction(event) {
@@ -58,36 +70,31 @@ export class FilterParametersComponent implements OnInit {
   setHashSalt(e) {
     console.log('set salt');
     const str =  e.target.value;
-    this.saltName = (str.substring(str.lastIndexOf('\\') + 1));
-    const file: File = e.target.files[0];
-    this.filter.setHashSalt(file);
-    this.formData.append('uploads[]', file, 'HashSalt.txt');
-    console.log(this.formData.getAll('uploads[]').length);
+    const fileName = (str.substring(str.lastIndexOf('\\') + 1));
+
+    this.saltName = fileName;
+    this.hashSaltFile = e.target.files[0];
+    console.log(this.hashSaltFile);
+
   }
 
   setElemDataSet(e) {
     console.log('Elem');
     const str =  e.target.value;
     this.dataSetName = (str.substring(str.lastIndexOf('\\') + 1));
-    const file: File = e.target.files[0];
-    this.filter.setDataSet(file);
-    this.formData.append('uploads[]', file, 'ElemDataset.csv');
-    console.log(this.formData.getAll('uploads[]').length);
+    this.ElemFile = e.target.files[0];
   }
 
   setNonElemDataSet(e) {
     console.log('NonElem');
     const str =  e.target.value;
     this.nonELemName = (str.substring(str.lastIndexOf('\\') + 1));
-    const file: File = e.target.files[0];
-    this.filter.setNonElemDataSet(file);
-    this.formData.append('uploads[]', file, 'NonElemDataset.csv');
-    console.log(this.formData.getAll('uploads[]').length);
+    this.NonElemFile = e.target.files[0];
   }
 
   disableButton() {
-    return !this.filter.dataSet ||
-        !this.filter.nonElemDataSet ||
+    return !this.ElemFile ||
+        !this.NonElemFile ||
         (this.filter.k !== 0 && this.filter.m === 0);
   }
 }
