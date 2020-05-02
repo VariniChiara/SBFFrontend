@@ -12,11 +12,7 @@ export class HttpServiceService {
   base = 'http://localhost:3000';
   port = '3000';
   ip = this.base; // + ':' + this.port;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
+
 
   constructor(private http: HttpClient) {
   }
@@ -37,58 +33,33 @@ export class HttpServiceService {
     });
   }
 
-  async calculateFilter( dataSet, nonElemDataSet, hash, salt, p, m, k) {
-    console.time('test');
-    console.log('calculate filter');
+  async calculateFilter( formData: FormData) {
+    console.time('save');
+    console.log('Start save parameters');
 
-    const a = await this.readUploadedFileAsText(dataSet);
-    const b = await this.readUploadedFileAsText(nonElemDataSet);
-
-    let c = 0;
-    if (hash === 'SHA1') {
-      c = 1;
-    } else if (hash === 'MD4') {
-      c = 4;
-    } else if (hash === 'MD5') {
-      c = 5;
-    }
-
-    let d = '';
-    if (salt) {
-       d = String(await this.readUploadedFileAsText(salt));
-    }
-    // console.log( String(a).split('\n').length - 1);
-    // console.log( String(b).split('\n').length - 1);
-
-    if (p === 0) { p = ''; }
-    if (m === 0) { m = ''; }
-    if (k === 0) { k = ''; }
-    const body = {
-        elem: a,
-        non_elem: b,
-        hash_: c,
-        salt_: d,
-        p_: p,
-        m_: m,
-        k_: k
-    };
-
-   // console.log(body);
     const url1 = this.ip + '/save';
 
     // tslint:disable-next-line:no-shadowed-variable
     console.log('1');
-    console.log(body);
+
     await new Promise((res, _) => {
       // tslint:disable-next-line:no-shadowed-variable
-      this.http.post(url1, body, this.httpOptions).subscribe( _ => res('ok'));
+      this.http.post(url1, formData).subscribe( _ => res('Ok'));
     });
     console.log('2');
+    console.log('Finish save parameters in ');
+    console.timeEnd('save');
+
+
+    console.time('calc');
+    console.log('Start calculate filter');
 
     await this.calc();
 
+    console.log('Finish save parameters in ');
+    console.timeEnd('calc');
+
     console.log('5');
-    console.timeEnd('test');
     return 'ok';
   }
 

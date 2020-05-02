@@ -11,10 +11,9 @@ export class FilterSettingsService {
   m = 0;  // cells
   k = 0;  // hash number
   hash = 'MD4';
-  salt;
-  dataSet;
-  nonElemDataSet;
-  // ordering = 'unif';
+  salt: File;
+  dataSet: File;
+  nonElemDataSet: File;
 
   constructor(public http: HttpServiceService, public data: DataResultsService, public charts: ChartsService) { }
 
@@ -42,19 +41,6 @@ export class FilterSettingsService {
     console.log('Has function: ' + this.hash);
   }
 
-  async calculate() {
-    await this.http.calculateFilter(
-        this.dataSet,
-        this.nonElemDataSet,
-        this.hash,
-        this.salt,
-        this.p,
-        this.m,
-        this.k
-    );
-
-    this.data.loadData(1);
-  }
 
 
 }
