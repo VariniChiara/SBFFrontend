@@ -17,9 +17,6 @@ export class FilterParametersComponent implements OnInit {
   dataSetName = 'Choose file';
   formData: FormData = new FormData();
 
-  ElemFile: Blob;
-  NonElemFile: Blob;
-  hashSaltFile: Blob;
 
   constructor(public filter: FilterSettingsService, public http: HttpServiceService, public data: DataResultsService) {}
 
@@ -48,11 +45,11 @@ export class FilterParametersComponent implements OnInit {
 
     this.formData.set('parameters', JSON.stringify(parameters));
 
-    this.formData.append('uploads[]', this.ElemFile, 'ElemDataset.csv');
-    this.formData.append('uploads[]', this.NonElemFile, 'NonElemDataset.csv');
+    this.formData.append('uploads[]', this.filter.dataSet, 'ElemDataset.csv');
+    this.formData.append('uploads[]', this.filter.nonElemDataSet, 'NonElemDataset.csv');
 
-    if (this.hashSaltFile !== undefined) {
-      this.formData.append('uploads[]', this.hashSaltFile, 'HashSalt.txt');
+    if (this.filter.salt !== undefined) {
+      this.formData.append('uploads[]', this.filter.salt, 'HashSalt.txt');
     }
     console.log(this.formData.getAll('uploads[]').length);
   }
@@ -71,30 +68,27 @@ export class FilterParametersComponent implements OnInit {
     console.log('set salt');
     const str =  e.target.value;
     const fileName = (str.substring(str.lastIndexOf('\\') + 1));
-
     this.saltName = fileName;
-    this.hashSaltFile = e.target.files[0];
-    console.log(this.hashSaltFile);
-
+    this.filter.salt = e.target.files[0];
   }
 
   setElemDataSet(e) {
     console.log('Elem');
     const str =  e.target.value;
     this.dataSetName = (str.substring(str.lastIndexOf('\\') + 1));
-    this.ElemFile = e.target.files[0];
+    this.filter.dataSet = e.target.files[0];
   }
 
   setNonElemDataSet(e) {
     console.log('NonElem');
     const str =  e.target.value;
     this.nonELemName = (str.substring(str.lastIndexOf('\\') + 1));
-    this.NonElemFile = e.target.files[0];
+    this.filter.nonElemDataSet = e.target.files[0];
   }
 
   disableButton() {
-    return !this.ElemFile ||
-        !this.NonElemFile ||
+    return !this.filter.dataSet ||
+        !this.filter.nonElemDataSet ||
         (this.filter.k !== 0 && this.filter.m === 0);
   }
 }
