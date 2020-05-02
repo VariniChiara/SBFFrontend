@@ -8,8 +8,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export class HttpServiceService {
 
-  base = 'https://sbfbackend.herokuapp.com';
-  //base = 'http://localhost:3000';
+ // base = 'https://sbfbackend.herokuapp.com';
+  base = 'http://localhost:3000';
   port = '3000';
   ip = this.base; // + ':' + this.port;
   httpOptions = {
@@ -38,8 +38,9 @@ export class HttpServiceService {
   }
 
   async calculateFilter( dataSet, nonElemDataSet, hash, salt, p, m, k) {
+    console.time('test');
     console.log('calculate filter');
-    console.log(m);
+
     const a = await this.readUploadedFileAsText(dataSet);
     const b = await this.readUploadedFileAsText(nonElemDataSet);
 
@@ -87,6 +88,7 @@ export class HttpServiceService {
     await this.calc();
 
     console.log('5');
+    console.timeEnd('test');
     return 'ok';
   }
 

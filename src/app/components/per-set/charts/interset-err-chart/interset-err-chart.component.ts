@@ -97,7 +97,7 @@ export class IntersetErrChartComponent implements OnInit {
             },
             ticks: {
               min : 0.0000,
-              stepSize: 0.0010
+              stepSize: 0.0025
             }
           }]
         }

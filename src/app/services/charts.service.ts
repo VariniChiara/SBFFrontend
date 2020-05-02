@@ -35,15 +35,15 @@ export class ChartsService {
     console.log('update whole filter charts');
     this.wholeFilter.setParams(this.filter.k, this.filter.m, this.filter.n, this.filter.p);
 
-    this.pVSk.data.datasets[0].data = [];
+    // this.pVSk.data.datasets[0].data = [];
     this.pVSk.data.datasets[0].data = this.wholeFilter.p3;
     this.pVSk.update();
 
-    this.pVSm.data.datasets[0].data = [];
+    // this.pVSm.data.datasets[0].data = [];
     this.pVSm.data.datasets[0].data = this.wholeFilter.p2;
     this.pVSm.update();
 
-    this.pVSn.data.datasets[0].data = [];
+   // this.pVSn.data.datasets[0].data = [];
     this.pVSn.data.datasets[0].data = this.wholeFilter.p1;
     this.pVSn.update();
   }

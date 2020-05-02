@@ -43,8 +43,8 @@ export class WholeFilterService {
     // let myN = this.n * (0.77);
     // const step = this.n * (0.53);
 
-    const step = 30000; // this.n * (0.53);
-    let myN = this.n * (0.77);
+    const step = this.n * (0.53);
+    let myN =  this.n * (0.77); // - (9 * step);this.n * 1 - (9 * step); //*
 
     let index = 0;
     while ( index <= 20) {
